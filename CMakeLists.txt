@@ -50,3 +50,44 @@ include(CTest)
 
 add_subdirectory(thirdparty)
 add_subdirectory(dummy)
+
+# ---------------------------
+# Binary directory config
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  "${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY AnyNewerVersion
+)
+
+export(EXPORT gslam-targets
+  FILE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}-targets.cmake"
+  NAMESPACE gslam::
+)
+
+configure_file(${PROJECT_NAME}-config.cmake.in
+  "${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+  @ONLY
+)
+
+# ---------------------------
+# Install prefix config
+set(INSTALL_CONFIG_DIR share/cmake/gslam)
+install(
+  EXPORT gslam-targets
+  FILE ${PROJECT_NAME}-targets.cmake
+  NAMESPACE gslam::
+  DESTINATION "${INSTALL_CONFIG_DIR}"
+)
+
+install(
+  FILES
+    "${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+    "${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+  DESTINATION
+    "${INSTALL_CONFIG_DIR}"
+)
+
+# ---------------------------
+include(UninstallTarget)
