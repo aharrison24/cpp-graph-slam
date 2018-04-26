@@ -1,0 +1,6 @@
+BasedOnStyle: LLVM
+AlwaysBreakTemplateDeclarations: 'true'
+Standard: Cpp11
+DerivePointerAlignment: 'false'
+PointerAlignment: Left
+AllowShortFunctionsOnASingleLine: Empty
