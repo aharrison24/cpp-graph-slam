@@ -74,6 +74,17 @@ if(EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
   include("${CMAKE_BINARY_DIR}/conan_paths.cmake")
 endif()
 
+find_package(SFML 2 COMPONENTS system window graphics REQUIRED)
+if(NOT TARGET SFML::SFML)
+  add_library(SFML::SFML INTERFACE IMPORTED)
+
+  set_target_properties(SFML::SFML PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${SFML_INCLUDE_DIR}"
+    INTERFACE_LINK_LIBRARIES "${SFML_LIBRARIES}"
+  )
+endif()
+
+
 add_subdirectory(thirdparty)
 add_subdirectory(dummy)
 
