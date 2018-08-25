@@ -48,6 +48,32 @@ project(gslam
 
 include(CTest)
 
+option(CONAN_AUTO_UPDATE "Automatically run 'conan install <src>' if necessary" OFF)
+if(EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
+  if ("${CMAKE_SOURCE_DIR}/conanfile.txt" IS_NEWER_THAN
+      "${CMAKE_BINARY_DIR}/conan_paths.cmake")
+    if(CONAN_AUTO_UPDATE)
+      message("conan_paths.txt file out-of-date. Regenerating it...")
+      execute_process(
+        COMMAND conan install "${CMAKE_SOURCE_DIR}" --build missing
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+      )
+    else()
+        message(FATAL_ERROR "It looks like your conan_paths.cmake file "
+          "is out-of-date. Please run the following commands:\n"
+          "cd \"${CMAKE_BINARY_DIR}\"\nconan install \"${CMAKE_SOURCE_DIR}\" "
+          "--build missing\n"
+          "If you want this to happen automatically in future, set the "
+          "CONAN_AUTO_UPDATE cache option to ON"
+        )
+    endif()
+  endif()
+
+  message("Found \"conan_paths.cmake\" file. "
+    "Using Conan to provide dependencies.")
+  include("${CMAKE_BINARY_DIR}/conan_paths.cmake")
+endif()
+
 add_subdirectory(thirdparty)
 add_subdirectory(dummy)
 
