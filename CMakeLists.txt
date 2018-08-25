@@ -5,6 +5,11 @@ set(CMAKE_CXX_STANDARD 17 CACHE STRING "")
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE CACHE BOOL "")
 set(CMAKE_CXX_EXTENSIONS FALSE CACHE BOOL "")
 
+# Always generate a compile_commands.json file if supported by the
+# current generator. Makes it easier to run tools such as clang-tidy and
+# oclint.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "")
+
 project(gslam)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
