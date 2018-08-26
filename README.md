@@ -17,17 +17,23 @@ for `find_package` calls in the top-level `CMakeLists.txt` file.
 The easiest way to install the project dependencies is to use the [Conan package
 manager](https://conan.io/).
 
+### Installing dependencies with homebrew
+```bash
+brew install sfml
+```
+
 ### Installing dependencies with conan
 ```bash
 # Install conan
 pip3 install conan
 
-# Add the bincrafters remote
+# Add extra remotes
 conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+conan remote add aharrison24 https://api.bintray.com/conan/aharrison24/conan-stuff
 
 # Install conan dependencies
 cd <build_dir>
-conan install <source_dir>
+conan install <source_dir> --build missing
 ```
 
 If the `conan_paths.txt` file in the source directory changes, then it will be
