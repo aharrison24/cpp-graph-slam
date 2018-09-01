@@ -18,7 +18,7 @@ install:
 
   - DEPS_DIR="${HOME}/deps"
   - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
-
+  
   # Install project's minimum required version of CMake
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
@@ -27,6 +27,11 @@ install:
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
     fi
   - cmake --version
+
+
+  # Install oclint
+  - eval "$(curl -sL https://raw.githubusercontent.com/ryuichis/oclint-cpp-travis-ci-examples/master/oclint-ci-install.sh)"
+  - oclint --version
 
 before_script:
   - cd "${TRAVIS_BUILD_DIR}"
@@ -38,4 +43,4 @@ script:
   - cmake --build . --config Release -- -j3
   - cmake --build . --config Release --target install
   - ctest -VV .
-  
+  - ${TRAVIS_BUILD_DIR}/.travis/run_oclint.sh
