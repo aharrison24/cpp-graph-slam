@@ -4,4 +4,8 @@ repos:
     hooks:
       - id: clang-format
         exclude: thirdparty
-
+  - repo: https://github.com/jorisroovers/gitlint
+    rev:  v0.10.0
+    hooks:
+      - id: gitlint
+        stages: [commit-msg]
