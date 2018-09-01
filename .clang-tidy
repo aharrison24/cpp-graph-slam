@@ -1,6 +1,8 @@
 ---
 Checks: >
     *,
+    -fuchsia-*,
+    -cppcoreguidelines-pro-type-union-access,
 
 WarningsAsErrors: ''
 HeaderFilterRegex: ''

@@ -87,6 +87,7 @@ endif()
 
 add_subdirectory(thirdparty)
 add_subdirectory(dummy)
+add_subdirectory(src)
 
 # ---------------------------
 # Binary directory config
