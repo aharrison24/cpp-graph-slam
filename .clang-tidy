@@ -2,6 +2,7 @@
 Checks: >
     *,
     -fuchsia-*,
+    -google-runtime-references,
     -cppcoreguidelines-pro-type-union-access,
 
 WarningsAsErrors: ''
